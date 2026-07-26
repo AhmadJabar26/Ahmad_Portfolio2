@@ -1,0 +1,6 @@
+{
+  "name": "Ahmad Jabar Portfolio",
+  "description": "A high-fidelity static portfolio website for Ahmad Jabar, built with React, Tailwind CSS, and TypeScript based on Google Stitch design export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahmad Jabar | Full-Stack Developer</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font pairings: Hanken Grotesk (Headings), Inter (Body), Geist (Labels/Metadata) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Inter:ital,wght@0,100..900;1,100..900&family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+  
+  <!-- Custom Tailwind config to enforce exact design specs and colors -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#172b42', // Slate Blue
+            'on-primary': '#ffffff',
+            'background-custom': '#f9f9ff',
+            'surface-custom': '#f9f9ff',
+            'on-surface-custom': '#111c2d',
+            'on-surface-variant-custom': '#44474d',
+            'secondary-custom': '#5c5f60',
+            'outline-variant-custom': '#c4c6cd',
+            'surface-container-low-custom': '#f0f3ff',
+            'surface-container-lowest-custom': '#ffffff',
+            'primary-container-custom': '#2e4159',
+            'on-primary-container-custom': '#9aadc9',
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            headline: ['Hanken Grotesk', 'sans-serif'],
+            mono: ['Geist Mono', 'monospace'],
+            label: ['Geist', 'sans-serif'],
+          },
+          borderWidth: {
+            '1.5': '1.5px',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-background-custom text-on-surface-custom font-sans antialiased selection:bg-[#172b42]/15 selection:text-[#172b42]">
+
+  <!-- Top Navigation Bar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-surface-custom/80 backdrop-blur-md border-b border-outline-variant-custom/30 transition-all duration-300">
+    <div class="max-w-[1120px] mx-auto px-8 flex justify-between items-center h-20">
+      <button 
+        id="nav-logo"
+        class="font-headline text-2xl font-bold tracking-tighter text-primary hover:opacity-90 transition-opacity"
+      >
+        Ahmad Jabar
+      </button>
+
+      <!-- Desktop Navigation Links -->
+      <div class="hidden md:flex items-center gap-8">
+        <button id="nav-link-about" data-scroll-to="about" class="font-label text-sm tracking-wide text-secondary-custom hover:text-primary transition-colors py-1 relative">About</button>
+        <button id="nav-link-skills" data-scroll-to="skills" class="font-label text-sm tracking-wide text-secondary-custom hover:text-primary transition-colors py-1 relative">Skills</button>
+        <button id="nav-link-experience" data-scroll-to="experience" class="font-label text-sm tracking-wide text-secondary-custom hover:text-primary transition-colors py-1 relative">Experience</button>
+        <button id="nav-link-projects" data-scroll-to="projects" class="font-label text-sm tracking-wide text-secondary-custom hover:text-primary transition-colors py-1 relative">Projects</button>
+        <button id="nav-link-contact" data-scroll-to="contact" class="font-label text-sm tracking-wide text-secondary-custom hover:text-primary transition-colors py-1 relative">Contact</button>
+        <a
+          href="#"
+          class="bg-primary text-on-primary hover:bg-primary-container-custom/90 px-5 py-2 rounded-[4px] font-label text-sm font-medium transition-colors inline-block"
+        >
+          Resume
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-toggle"
+        class="md:hidden text-primary p-1 hover:bg-surface-container-low-custom rounded transition-colors"
+        aria-label="Toggle menu"
+      >
+        <!-- Menu Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Drawer -->
+  <div
+    id="mobile-drawer"
+    class="fixed inset-y-0 right-0 w-72 z-40 bg-surface-custom border-l border-outline-variant-custom/50 shadow-xl md:hidden transform translate-x-full transition-transform duration-300 ease-in-out"
+  >
+    <div class="flex flex-col h-full pt-24 px-8 pb-8 justify-between">
+      <div class="flex flex-col gap-6">
+        <button data-scroll-to="about" class="text-left font-label text-lg tracking-wide text-secondary-custom hover:text-primary transition-all">About</button>
+        <button data-scroll-to="skills" class="text-left font-label text-lg tracking-wide text-secondary-custom hover:text-primary transition-all">Skills</button>
+        <button data-scroll-to="experience" class="text-left font-label text-lg tracking-wide text-secondary-custom hover:text-primary transition-all">Experience</button>
+        <button data-scroll-to="projects" class="text-left font-label text-lg tracking-wide text-secondary-custom hover:text-primary transition-all">Projects</button>
+        <button data-scroll-to="contact" class="text-left font-label text-lg tracking-wide text-secondary-custom hover:text-primary transition-all">Contact</button>
+      </div>
+
+      <a
+        href="#"
+        class="bg-primary text-on-primary hover:bg-primary-container-custom/90 w-full py-3.5 rounded-[4px] font-label text-base font-medium transition-all text-center"
+      >
+        Download CV
+      </a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <header class="relative min-h-[80vh] flex items-center pt-24 pb-16 bg-background-custom overflow-hidden">
+    <div class="max-w-[1120px] mx-auto px-8 w-full z-10">
+      <div class="max-w-3xl">
+        <h1 class="font-headline text-5xl md:text-6xl lg:text-[64px] font-bold text-primary tracking-tight leading-none mb-4">
+          Ahmad Jabar
+        </h1>
+        <p class="font-headline text-2xl md:text-[32px] font-semibold text-primary tracking-tight leading-tight mb-6">
+          Full-Stack Developer
+        </p>
+        <p class="font-sans text-lg md:text-xl text-on-surface-variant-custom leading-relaxed mb-10 max-w-2xl">
+          I build real-world web applications with technical precision, bridging the gap between elegant user interfaces and robust architectural integrity.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <button
+            data-scroll-to="projects"
+            class="bg-primary text-on-primary px-8 py-3.5 rounded-[4px] font-label text-sm font-medium hover:bg-primary-container-custom/90 transition-colors shadow-sm"
+          >
+            View Projects
+          </button>
+          <a
+            href="#"
+            class="border-1.5 border-primary text-primary px-8 py-3.5 rounded-[4px] font-label text-sm font-medium hover:bg-surface-container-low-custom transition-all"
+          >
+            Download Resume
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- About & Education Section -->
+  <section class="py-20 md:py-[120px] max-w-[1120px] mx-auto px-8 border-t border-outline-variant-custom/20" id="about">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+      <!-- About Column -->
+      <div class="md:col-span-7">
+        <h2 class="font-headline text-3xl md:text-[32px] font-bold text-primary tracking-tight mb-8">
+          About
+        </h2>
+        <div class="font-sans text-lg text-on-surface-variant-custom space-y-6 leading-relaxed">
+          <p>
+            I am a Software Engineering graduate with a profound passion for creating scalable digital solutions. My expertise spans across the full-stack development lifecycle, from designing intuitive frontend experiences to architecting efficient backend systems.
+          </p>
+          <p>
+            With additional experience in AI and Machine Learning, I bring a data-driven perspective to web development, ensuring that the applications I build are not only functional but also intelligent and user-centric.
+          </p>
+        </div>
+      </div>
+
+      <!-- Education Column -->
+      <div class="md:col-span-5 md:pl-6">
+        <h2 class="font-headline text-3xl md:text-[32px] font-bold text-primary tracking-tight mb-8">
+          Education
+        </h2>
+        <div class="bg-surface-container-lowest-custom border border-outline-variant-custom/60 p-8 rounded-[4px] transition-all" id="education-card">
+          <div class="flex items-start gap-4">
+            <div class="bg-surface-container-low-custom p-2.5 rounded-[4px] text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M6 18.8 6 12"/><path d="M18 12h.01"/><path d="M18 18h.01"/><path d="M18 15h.01"/><path d="M22 18H2"/><path d="M12 14v6"/></svg>
+            </div>
+            <div>
+              <h3 class="font-label text-xs font-bold tracking-widest text-secondary-custom uppercase mb-1">
+                COMSATS University
+              </h3>
+              <p class="font-headline text-xl font-semibold text-primary mb-1">
+                BSc Software Engineering
+              </p>
+              <p class="font-mono text-[13px] text-secondary-custom">
+                Graduated with Technical Honors
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Arsenal Section (Skills Bento Grid) -->
+  <section class="py-20 md:py-[120px] bg-surface-container-lowest-custom border-y border-outline-variant-custom/20" id="skills">
+    <div class="max-w-[1120px] mx-auto px-8">
+      <h2 class="font-headline text-3xl md:text-[32px] font-bold text-primary tracking-tight mb-12">
+        Technical Arsenal
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Frontend Card -->
+        <div class="group bg-background-custom border border-outline-variant-custom/60 p-8 rounded-[4px] hover:border-primary hover:shadow-[0_4px_12px_rgba(23,43,66,0.05)] transition-all duration-300">
+          <div class="mb-6 text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-brush"><path d="m14 22 .125-.125a2.249 2.249 0 0 0 0-3.182L10.5 15.318M14 22l-4-4M14 22l4-4M18 18l.125-.125a2.249 2.249 0 0 0 0-3.182L14.5 11.318M18 18l-4-4M18 18l4-4M22 14l-.125-.125a2.249 2.249 0 0 0 0-3.182L18.5 7.318M22 14l-4-4M22 14l1.5-1.5M10.5 15.318l-2.5-2.5m2.5 2.5 4-4M8 12.818 5.5 10.318M8 12.818l4-4"/></svg>
+          </div>
+          <h3 class="font-headline text-2xl font-semibold text-primary mb-4">
+            Frontend
+          </h3>
+          <div class="flex flex-wrap gap-2.5">
+            <span class="bg-surface-container-low-custom text-primary px-3 py-1 rounded-[4px] font-label text-sm font-medium border border-outline-variant-custom/20">HTML</span>
+            <span class="bg-surface-container-low-custom text-primary px-3 py-1 rounded-[4px] font-label text-sm font-medium border border-outline-variant-custom/20">Tailwind CSS</span>
+            <span class="bg-surface-container-low-custom text-primary px-3 py-1 rounded-[4px] font-label text-sm font-medium border border-outline-variant-custom/20">JavaScript</span>
+            <span class="bg-surface-container-low-custom text-primary px-3 py-1 rounded-[4px] font-label text-sm font-medium border border-outline-variant-custom/20">TypeScript</span>
+            <span class="bg-surface-container-low-custom text-primary px-3 py-1 rounded-[4px] font-label text-sm font-medium border border-outline-variant-custom/20">React</span>
+          </div>
+        </div>
+
+        <!-- Backend Card -->
+        <div class="group bg-background-custom border border-outline-variant-custom/60 p-8 rounded-[4px] hover:border-primary hover:shadow-[0_4px_12px_rgba(23,43,66,0.05)] transition-all duration-300">
+          <div class="mb-6 text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+          </div>
+          <h3 class="font-headline text-2xl font-semibold text-primary mb-4">
+            Backend
+          </h3>
+          <div class="flex flex-wrap gap-2.5">
+            <span class="bg-surface-container-low-custom text-primary px-3 py-1 rounded-[4px] font-label text-sm font-medium border border-outline-variant-custom/20">Node.js</span>
+            <span class="bg-surface-container-low-custom text-primary px-3 py-1 rounded-[4px] font-label text-sm font-medium border border-outline-variant-custom/20">Express</span>
+            <span class="bg-surface-container-low-custom text-primary px-3 py-1 rounded-[4px] font-label text-sm font-medium border border-outline-variant-custom/20">PHP</span>
+            <span class="bg-surface-container-low-custom text-primary px-3 py-1 rounded-[4px] font-label text-sm font-medium border border-outline-variant-custom/20">Laravel</span>
+          </div>
+        </div>
+
+        <!-- Other Card -->
+        <div class="group bg-background-custom border border-outline-variant-custom/60 p-8 rounded-[4px] hover:border-primary hover:shadow-[0_4px_12px_rgba(23,43,66,0.05)] transition-all duration-300">
+          <div class="mb-6 text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3 class="font-headline text-2xl font-semibold text-primary mb-4">
+            Other
+          </h3>
+          <div class="flex flex-wrap gap-2.5">
+            <span class="bg-surface-container-low-custom text-primary px-3 py-1 rounded-[4px] font-label text-sm font-medium border border-outline-variant-custom/20">Python</span>
+            <span class="bg-surface-container-low-custom text-primary px-3 py-1 rounded-[4px] font-label text-sm font-medium border border-outline-variant-custom/20">Java</span>
+            <span class="bg-surface-container-low-custom text-primary px-3 py-1 rounded-[4px] font-label text-sm font-medium border border-outline-variant-custom/20">Django</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Experience Section -->
+  <section class="py-20 md:py-[120px] max-w-[1120px] mx-auto px-8" id="experience">
+    <h2 class="font-headline text-3xl md:text-[32px] font-bold text-primary tracking-tight mb-16">
+      Professional Experience
+    </h2>
+    
+    <div class="relative border-l-[1.5px] border-outline-variant-custom/60 ml-4 pl-8 md:pl-12 space-y-16">
+      <!-- Experience Item 1 -->
+      <div class="relative">
+        <!-- Custom geometric timeline marker -->
+        <div class="absolute -left-[41px] top-1.5 w-4.5 h-4.5 bg-primary border-[3px] border-background-custom rounded-sm"></div>
+        
+        <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+          <div>
+            <h3 class="font-headline text-2xl font-semibold text-primary leading-snug">
+              Generative AI Intern
+            </h3>
+            <p class="font-label text-sm font-bold tracking-widest text-secondary-custom uppercase mt-1">
+              ITSOLERA
+            </p>
+          </div>
+          <span class="inline-block md:mt-1 self-start font-mono text-[13px] text-primary bg-[#e7eeff] px-3 py-1 rounded-[4px] border border-primary/10">
+            2023 - Present
+          </span>
+        </div>
+
+        <ul class="space-y-3.5">
+          <li class="flex items-start font-sans text-base text-on-surface-variant-custom leading-relaxed">
+            <span class="mt-2.5 mr-3 w-[5px] h-[5px] bg-primary flex-shrink-0 rounded-sm"></span>
+            <span>Assisting in the implementation of LLM-based solutions for internal workflow optimization.</span>
+          </li>
+          <li class="flex items-start font-sans text-base text-on-surface-variant-custom leading-relaxed">
+            <span class="mt-2.5 mr-3 w-[5px] h-[5px] bg-primary flex-shrink-0 rounded-sm"></span>
+            <span>Developing prompt engineering strategies and fine-tuning models for specific domain tasks.</span>
+          </li>
+          <li class="flex items-start font-sans text-base text-on-surface-variant-custom leading-relaxed">
+            <span class="mt-2.5 mr-3 w-[5px] h-[5px] bg-primary flex-shrink-0 rounded-sm"></span>
+            <span>Collaborating with the backend team to integrate AI microservices using Python and Node.js.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Experience Item 2 -->
+      <div class="relative">
+        <!-- Custom geometric timeline marker -->
+        <div class="absolute -left-[41px] top-1.5 w-4.5 h-4.5 bg-primary border-[3px] border-background-custom rounded-sm"></div>
+        
+        <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+          <div>
+            <h3 class="font-headline text-2xl font-semibold text-primary leading-snug">
+              Web Developer
+            </h3>
+            <p class="font-label text-sm font-bold tracking-widest text-secondary-custom uppercase mt-1">
+              Codistan Ventures
+            </p>
+          </div>
+          <span class="inline-block md:mt-1 self-start font-mono text-[13px] text-primary bg-[#e7eeff] px-3 py-1 rounded-[4px] border border-primary/10">
+            2022 - 2023
+          </span>
+        </div>
+
+        <ul class="space-y-3.5">
+          <li class="flex items-start font-sans text-base text-on-surface-variant-custom leading-relaxed">
+            <span class="mt-2.5 mr-3 w-[5px] h-[5px] bg-primary flex-shrink-0 rounded-sm"></span>
+            <span>Built and maintained high-performance web applications using Laravel and React.</span>
+          </li>
+          <li class="flex items-start font-sans text-base text-on-surface-variant-custom leading-relaxed">
+            <span class="mt-2.5 mr-3 w-[5px] h-[5px] bg-primary flex-shrink-0 rounded-sm"></span>
+            <span>Optimized database queries leading to a 30% reduction in server response times.</span>
+          </li>
+          <li class="flex items-start font-sans text-base text-on-surface-variant-custom leading-relaxed">
+            <span class="mt-2.5 mr-3 w-[5px] h-[5px] bg-primary flex-shrink-0 rounded-sm"></span>
+            <span>Participated in code reviews and architectural planning for client-facing projects.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects Section -->
+  <section class="py-20 md:py-[120px] bg-background-custom border-t border-outline-variant-custom/20" id="projects">
+    <div class="max-w-[1120px] mx-auto px-8">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+        <div>
+          <h2 class="font-headline text-3xl md:text-[32px] font-bold text-primary tracking-tight mb-2">
+            Featured Projects
+          </h2>
+        </div>
+        <p class="font-sans text-base text-on-surface-variant-custom max-w-sm leading-relaxed">
+          Selected works demonstrating architectural depth and technical execution in real-world scenarios.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <!-- Project 1 -->
+        <div class="group flex flex-col">
+          <div class="relative overflow-hidden aspect-video border border-outline-variant-custom/60 rounded-[8px] bg-white mb-6">
+            <div class="absolute inset-0 bg-primary/5 group-hover:bg-primary/0 transition-all duration-500 z-10 pointer-events-none"></div>
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDW4BCON7wLEFqzl3F_-se-XVr4D4hF0PXIkXApF-ePuH5Hbc3k3-kj0xtN1v3YK9yMwisQFlh3-OR9oQwuNBQYZR5_fXz3DkTJFzKX5cVrUmk-uLabTcCwTxkEGiz12MMpRXJfT_TA0LqU8wSF3xa1vzK6QbXNYvJ4TrB3nZT33WCHAshTsTkqsdjbjsKBFaj2C1DTsDkAAM40mMdBs-sSFEie6B9mqoxklblZWT2SQvQAa19f9tVI4l693F7SBhZJG7TdLmOK_KP"
+              alt="Print My Boxes Packaging Management Dashboard Screen"
+              referrerPolicy="no-referrer"
+              class="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+            >
+          </div>
+          <div class="flex gap-2 mb-3">
+            <span class="font-mono text-[11px] font-medium uppercase tracking-wider text-secondary-custom border border-outline-variant-custom/60 px-2 py-0.5 rounded-[2px]">Laravel</span>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-wider text-secondary-custom border border-outline-variant-custom/60 px-2 py-0.5 rounded-[2px]">MySQL</span>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-wider text-secondary-custom border border-outline-variant-custom/60 px-2 py-0.5 rounded-[2px]">Tailwind</span>
+          </div>
+          <h3 class="font-headline text-2xl font-bold text-primary mb-2.5">
+            Print My Boxes
+          </h3>
+          <p class="font-sans text-base text-on-surface-variant-custom leading-relaxed mb-4 flex-grow">
+            An end-to-end client packaging system allowing users to configure, quote, and track custom box orders with real-time inventory synchronization.
+          </p>
+          <div>
+            <a
+              href="#"
+              class="inline-flex items-center gap-1 text-primary font-bold hover:gap-2.5 transition-all text-sm tracking-wide"
+            >
+              View Project 
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="group flex flex-col">
+          <div class="relative overflow-hidden aspect-video border border-outline-variant-custom/60 rounded-[8px] bg-white mb-6">
+            <div class="absolute inset-0 bg-primary/5 group-hover:bg-primary/0 transition-all duration-500 z-10 pointer-events-none"></div>
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcOShF6_iR9X-jR6m8b_AcbcmER9v34YmY7Ft6ewg7JF8llI1YQDQaraEtCybfSKhNepO5ULK3xuTMithVDbHFwmNiI8OyoAeXPnwIOOtFXWxMYZSlxEq7V-Xl3H7qnxLt5wMV728RrAbsKcojOZlUA4I4ID8JleXLRWu4_9Gtb0W3Ef2b5Xx_8CCdHCv_xdqsG3FCNasvuz-xRn4zMT6fv2kCIAhgz36fd6pmXnpL8BLguojhaY15Tl3VMs1YzF0f5MyCMPUnB8U_"
+              alt="Flavors Cafe Restaurant Interface with Elegant Typography"
+              referrerPolicy="no-referrer"
+              class="w-full h-full object-cover transform group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+            >
+          </div>
+          <div class="flex gap-2 mb-3">
+            <span class="font-mono text-[11px] font-medium uppercase tracking-wider text-secondary-custom border border-outline-variant-custom/60 px-2 py-0.5 rounded-[2px]">React</span>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-wider text-secondary-custom border border-outline-variant-custom/60 px-2 py-0.5 rounded-[2px]">Firebase</span>
+            <span class="font-mono text-[11px] font-medium uppercase tracking-wider text-secondary-custom border border-outline-variant-custom/60 px-2 py-0.5 rounded-[2px]">Framer Motion</span>
+          </div>
+          <h3 class="font-headline text-2xl font-bold text-primary mb-2.5">
+            Flavors Cafe
+          </h3>
+          <p class="font-sans text-base text-on-surface-variant-custom leading-relaxed mb-4 flex-grow">
+            A modern restaurant platform featuring a dynamic digital menu, online table reservation system, and a custom content management backend.
+          </p>
+          <div>
+            <a
+              href="#"
+              class="inline-flex items-center gap-1 text-primary font-bold hover:gap-2.5 transition-all text-sm tracking-wide"
+            >
+              View Project 
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="py-20 md:py-[120px] max-w-[1120px] mx-auto px-8" id="contact">
+    <div class="bg-primary text-on-primary rounded-2xl p-12 md:p-20 relative overflow-hidden shadow-lg">
+      <div class="relative z-10 max-w-2xl">
+        <h2 class="font-headline text-4xl md:text-5xl font-bold tracking-tight mb-4">
+          Let's build something technically sound.
+        </h2>
+        <p class="font-sans text-lg text-[#9aadc9] leading-relaxed mb-12">
+          I am currently open to new opportunities and collaborations. Whether you have a project in mind or just want to chat about architecture, reach out.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-8">
+          <!-- Email Contact Link -->
+          <a 
+            href="mailto:Ahmedjabar45656@gmail.com" 
+            class="flex items-center gap-4 group cursor-pointer"
+            id="contact-email-link"
+          >
+            <div class="w-12 h-12 rounded-full bg-primary-container-custom flex items-center justify-center text-white group-hover:bg-[#9aadc9] group-hover:text-primary transition-all duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
+            <div>
+              <p class="text-xs font-bold tracking-widest text-[#9aadc9] uppercase">
+                Email
+              </p>
+              <p class="font-headline text-[20px] font-semibold text-white group-hover:text-[#9aadc9] transition-colors">
+                ahmad.jabar@example.com
+              </p>
+            </div>
+          </a>
+
+          <!-- LinkedIn Contact Link -->
+          <a 
+            href="#" 
+            class="flex items-center gap-4 group cursor-pointer"
+            id="contact-linkedin-link"
+          >
+            <div class="w-12 h-12 rounded-full bg-primary-container-custom flex items-center justify-center text-white group-hover:bg-[#9aadc9] group-hover:text-primary transition-all duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </div>
+            <div>
+              <p class="text-xs font-bold tracking-widest text-[#9aadc9] uppercase">
+                LinkedIn
+              </p>
+              <p class="font-headline text-[20px] font-semibold text-white group-hover:text-[#9aadc9] transition-colors">
+                linkedin.com/in/ahmadjabar
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w-full py-16 bg-surface-container-lowest-custom border-t border-outline-variant-custom/30">
+    <div class="max-w-[1120px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="font-headline text-xl font-bold text-primary">
+        Ahmad Jabar
+      </div>
+      
+      <div class="flex gap-8">
+        <a href="#" class="text-secondary-custom hover:text-primary transition-colors font-sans text-sm">GitHub</a>
+        <a href="#" class="text-secondary-custom hover:text-primary transition-colors font-sans text-sm">LinkedIn</a>
+        <a href="#" class="text-secondary-custom hover:text-primary transition-colors font-sans text-sm">Twitter</a>
+        <a href="mailto:Ahmedjabar45656@gmail.com" class="text-secondary-custom hover:text-primary transition-colors font-sans text-sm">Email</a>
+      </div>
+      
+      <p class="text-secondary-custom font-sans text-sm md:text-right">
+        © 2024 Ahmad Jabar. Built with technical precision.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Include our separate script.ts script compiled/served locally -->
+  <script src="./script.ts"></script>
+</body>
+</html>
