@@ -1,11 +1,8 @@
-
-
-# Run and deploy your AI Studio app
+# Run and deployed on Netlify App
 
 This contains everything you need to run your app locally.
 
-View your app in AI Studio: https://ai.studio/apps/a6a922c4-1732-46bf-9118-35197004f5b3
-
+View my Web app in Netlify: https://ahmad-portfolio2.vercel.app/
 ## Run Locally
 
 **Prerequisites:**  Node.js
